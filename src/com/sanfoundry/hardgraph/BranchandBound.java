@@ -1,7 +1,9 @@
-package org.sevenhills.liueri19;
+package com.sanfoundry.hardgraph;
 
-////
-//code copied from http://www.sanfoundry.com/java-program-implement-branch-bound-method-perform-combinatorial-search/
+/*
+ * code copied from http://www.sanfoundry.com/java-program-implement-branch-bound-method-perform-combinatorial-search/
+ * This is an example solution;
+ */
 
 import java.util.ArrayList;
 import java.util.Arrays;
