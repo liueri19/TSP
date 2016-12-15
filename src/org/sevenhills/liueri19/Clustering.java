@@ -25,15 +25,15 @@ public class Clustering {
 		for (int i = 0; i < inputs.length; i += 3)
 			cities.add(new City(inputs[i], Integer.parseInt(inputs[i+1]), Integer.parseInt(inputs[i+2])));
 		////
-		cities = findPath(cities);
+		cities = bruteForce(cities);
 	}
 	
 	/**
-	 * Find a relatively short path through the list of cities.
+	 * Find the shortest path through the list of cities.
 	 * @param cities the list of cities to find path in
 	 * @return a list of the same cities in the order of visit
 	 */
-	private static List<City> findPath(List<City> cities) {
+	private static List<City> bruteForce(List<City> cities) {
 		City origin = cities.remove(0);
 		
 	}
