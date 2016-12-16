@@ -6,7 +6,7 @@ public class CoordGen {
 
 	public static void main(String[] args) {
 		Random random = new Random();
-		int cities = 12;
+		int cities = 4;
 		
 		System.out.print("[ ");
 		for (int i = 0; i < cities; i++) {
