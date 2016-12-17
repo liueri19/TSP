@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class BruteForce {
 	
-	private static double best;
+	public static double best = Double.MAX_VALUE;
+	public static List<City> result = new ArrayList<City>();
 	
 	public static void main(String[] args) {
 		//variables
@@ -27,10 +28,12 @@ public class BruteForce {
 		for (int i = 0; i < inputs.length; i += 3)
 			cities.add(new City(inputs[i], Integer.parseInt(inputs[i+1]), Integer.parseInt(inputs[i+2])));
 		////
-		cities = bruteForce(cities);
-		for (City c : cities) {
+		bruteForce(cities);
+		
+		for (City c : result) {
 			System.out.print(c + " -> ");
 		}
+		System.out.print("\n\t" + best);
 	}
 	
 	//pseudo code
@@ -53,34 +56,47 @@ public class BruteForce {
 	 */
 	
 	/**
-	 * Find the shortest path through the list of cities using brute force algorithm.
+	 * Find the shortest path through the list of cities using brute force algorithm. The result of the algorithm is stored in the <code>result</code>.
 	 * @param cities the list of cities to find path in
-	 * @return a list of the same cities in the order of visit
 	 */
-	private static List<City> bruteForce(List<City> cities) {
+	private static void bruteForce(List<City> cities) {
 		City origin = cities.remove(0);
-		List<City> result = new ArrayList<City>();
+		List<City> visited = new ArrayList<City>();
 		double distance = 0;
-		loop(origin, result, origin, cities, distance);
-		
-		return result;
+		result.add(origin);
+		visited.add(origin);
+		loop(origin, visited, origin, cities, distance);
 	}
 	
-	private static void loop(City origin, List<City> visited, City current, List<City> cities, double distance) {
-		if (cities.size() == 1) {
-			City last = cities.get(0);
+	private static void loop(City origin, List<City> visited, City current, List<City> unvisited, double distance) {
+		//if only one city left to visit
+		if (unvisited.size() == 1) {
+			City last = unvisited.get(0);
 			distance += current.getDistance(last);
-			visited.add(last);
 			distance += last.getDistance(origin);
-			if (distance < best)  //new best found
+			//if the result is better than the known one
+			if (distance < best) {  //new best found
 				best = distance;
+				//result = visited cities + last city
+				result = new ArrayList<City>(visited);
+				result.add(last);
+			}
+			//testing
+			for (City c : visited)
+				System.out.print(c + " -> ");
+			System.out.println(last);
+			System.out.println(distance);
+			////
 			return;
 		}
-		for (City c : cities) {
-			List<City> copy = new ArrayList<City>(cities);
+		
+		for (City c : unvisited) { //c: next city to visit
+			List<City> copy = new ArrayList<City>(unvisited);
 			copy.remove(c);
+			distance += current.getDistance(c);
 			visited.add(c);
 			loop(origin, visited, c, copy, distance);
+			visited.remove(visited.size()-1); //remove the last city, go back to the previous city
 		}
 	}
 }
