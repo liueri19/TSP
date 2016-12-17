@@ -29,8 +29,8 @@ public class City {
 	 * @return the distance between this city and the specified city
 	 */
 	public double getDistance(City city) {
-		int deltaX = Math.abs(city.getX() - this.getX());
-		int deltaY = Math.abs(city.getY() - this.getY());
+		int deltaX = city.getX() - this.getX();
+		int deltaY = city.getY() - this.getY();
 		return Math.pow(Math.pow(deltaX, 2) + Math.pow(deltaY, 2), 0.5);
 	}
 }

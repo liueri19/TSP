@@ -62,10 +62,9 @@ public class BruteForce {
 	private static void bruteForce(List<City> cities) {
 		City origin = cities.remove(0);
 		List<City> visited = new ArrayList<City>();
-		double distance = 0;
 		result.add(origin);
 		visited.add(origin);
-		loop(origin, visited, origin, cities, distance);
+		loop(origin, visited, origin, cities, 0);
 	}
 	
 	private static void loop(City origin, List<City> visited, City current, List<City> unvisited, double distance) {
@@ -91,12 +90,14 @@ public class BruteForce {
 		}
 		
 		for (City c : unvisited) { //c: next city to visit
+			double currentToC = current.getDistance(c);
 			List<City> copy = new ArrayList<City>(unvisited);
 			copy.remove(c);
-			distance += current.getDistance(c);
+			distance += currentToC;
 			visited.add(c);
 			loop(origin, visited, c, copy, distance);
-			visited.remove(visited.size()-1); //remove the last city, go back to the previous city
+			visited.remove(c); //remove the last city, go back to the previous city
+			distance -= currentToC;
 		}
 	}
 }
