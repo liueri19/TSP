@@ -6,13 +6,13 @@ import java.util.Scanner;
 
 public class BruteForce {
 	
-	public static double best = Double.MAX_VALUE;
-	public static List<City> result = new ArrayList<City>();
+	private double best = Double.MAX_VALUE;
+	private List<City> result = new ArrayList<City>();
 	
 	public static void main(String[] args) {
 		//variables
 		List<City> cities = new ArrayList<City>();
-		
+		BruteForce bf = new BruteForce();
 		//get input
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
@@ -28,12 +28,12 @@ public class BruteForce {
 		for (int i = 0; i < inputs.length; i += 3)
 			cities.add(new City(inputs[i], Integer.parseInt(inputs[i+1]), Integer.parseInt(inputs[i+2])));
 		////
-		bruteForce(cities);
+		bf.bruteForce(cities);
 		
-		for (City c : result) {
+		for (City c : bf.result) {
 			System.out.print(c + " -> ");
 		}
-		System.out.print("\n\t" + best);
+		System.out.print("\n\t" + bf.best);
 	}
 	
 	//pseudo code
@@ -56,18 +56,20 @@ public class BruteForce {
 	 */
 	
 	/**
-	 * Find the shortest path through the list of cities using brute force algorithm. The result of the algorithm is stored in the <code>result</code>.
+	 * Find the shortest path through the list of cities using brute force algorithm.
 	 * @param cities the list of cities to find path in
+	 * @return a list of cities in the order of visit
 	 */
-	private static void bruteForce(List<City> cities) {
+	public List<City> bruteForce(List<City> cities) {
 		City origin = cities.remove(0);
 		List<City> visited = new ArrayList<City>();
 		result.add(origin);
 		visited.add(origin);
 		loop(origin, visited, origin, cities, 0);
+		return result;
 	}
 	
-	private static void loop(City origin, List<City> visited, City current, List<City> unvisited, double distance) {
+	private void loop(City origin, List<City> visited, City current, List<City> unvisited, double distance) {
 		//if only one city left to visit
 		if (unvisited.size() == 1) {
 			City last = unvisited.get(0);
@@ -99,5 +101,9 @@ public class BruteForce {
 			visited.remove(c); //remove the last city, go back to the previous city
 			distance -= currentToC;
 		}
+	}
+	
+	public double getBest() {
+		return best;
 	}
 }
