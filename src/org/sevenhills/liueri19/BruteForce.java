@@ -2,39 +2,13 @@ package org.sevenhills.liueri19;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class BruteForce {
 	
 	private double best = Double.MAX_VALUE;
+	private List<City> cities;
 	private List<City> result = new ArrayList<City>();
-	
-	public static void main(String[] args) {
-		//variables
-		List<City> cities = new ArrayList<City>();
-		BruteForce bf = new BruteForce();
-		//get input
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.nextLine();
-		scanner.close();
-		////
-		//remove all brackets
-		input = input.replaceAll("\\[\\s", "");
-		input = input.replaceAll("\\s\\]", "");
-		////
-		//split by comma
-		String[] inputs = input.split(", ");
-		//construct & add cities
-		for (int i = 0; i < inputs.length; i += 3)
-			cities.add(new City(inputs[i], Integer.parseInt(inputs[i+1]), Integer.parseInt(inputs[i+2])));
-		////
-		bf.bruteForce(cities);
-		
-		for (City c : bf.result) {
-			System.out.print(c + " -> ");
-		}
-		System.out.print("\n\t" + bf.best);
-	}
+	private List<List<City>> solutions = new ArrayList<List<City>>();
 	
 	//pseudo code
 	/* double distance = 0;
@@ -57,10 +31,11 @@ public class BruteForce {
 	
 	/**
 	 * Find the shortest path through the list of cities using brute force algorithm.
-	 * @param cities the list of cities to find path in
+	 * @param argCities the list of cities to find path in
 	 * @return a list of cities in the order of visit
 	 */
-	public List<City> bruteForce(List<City> cities) {
+	public List<City> solve(List<City> argCities) {
+		cities = new ArrayList<City>(argCities);
 		City origin = cities.remove(0);
 		List<City> visited = new ArrayList<City>();
 		result.add(origin);
@@ -102,6 +77,13 @@ public class BruteForce {
 			distance -= currentToC;
 		}
 	}
+	
+//	public List<City> solve(List<City> argCities) {
+//		cities = new ArrayList<City>(argCities);
+//		City origin = cities.remove(0);
+//		//rule out all duplicate routes?
+//		return result;
+//	}
 	
 	public double getBest() {
 		return best;

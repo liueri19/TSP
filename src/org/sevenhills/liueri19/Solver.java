@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Solver extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private static final int width = 800;
 	private static final int height = 800;
 	public static List<City> cities = new ArrayList<City>();
@@ -41,7 +42,7 @@ public class Solver extends JPanel {
 			cities.add(new City(inputs[i], Integer.parseInt(inputs[i+1]), Integer.parseInt(inputs[i+2])));
 		////
 		//find path
-		cities = bf.bruteForce(cities);
+		cities = bf.solve(cities);
 		//print result
 		System.out.print("\nRoute: " + cities.get(0));
 		for (int i = 1; i < cities.size(); i++)
