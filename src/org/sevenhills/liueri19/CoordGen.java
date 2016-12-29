@@ -9,7 +9,7 @@ public class CoordGen {
 	private static final String capitalsArray[] = 
 		{ "Beijing", "Rome", "Tokyo", "Moscow", "Washington", "London", "Paris", "Berlin", "Vienna", "Singapore" };
 	private static List<String> capitals = new ArrayList<String>(Arrays.asList(capitalsArray));
-	private static final int cities = 6;
+	private static final int cities = 10;
 
 	public static void main(String[] args) {
 		Random random = new Random();

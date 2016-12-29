@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +17,8 @@ public class Solver extends JPanel {
 	private static final int width = 800;
 	private static final int height = 800;
 	public static List<City> cities = new ArrayList<City>();
+	private static double timeBruteForce, timePolarScan;
+	private static double distanceBF, distancePS;
 	
 	public Solver() {
 		super(true);
@@ -24,8 +27,9 @@ public class Solver extends JPanel {
 	}
 	
 	public static void main(String[] args) {
-		//variables
+		//methods
 		BruteForce bf = new BruteForce();
+		PolarScan ps = new PolarScan();
 		//get input
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
@@ -41,13 +45,30 @@ public class Solver extends JPanel {
 		for (int i = 0; i < inputs.length; i += 3)
 			cities.add(new City(inputs[i], Integer.parseInt(inputs[i+1]), Integer.parseInt(inputs[i+2])));
 		////
-		//find path
-		cities = bf.solve(cities);
+		//find path, brute force
+//		timeBruteForce = System.nanoTime();
+//		cities = bf.solve(cities);
+//		distanceBF = bf.getBestDistance();
+//		timeBruteForce = System.nanoTime() - timeBruteForce;
+//		timeBruteForce = timeBruteForce / 1000000;
+		//find path, polar scan
+		timePolarScan = System.nanoTime();
+		cities = ps.solve(cities);
+		distancePS = ps.getBestDistance();
+		timePolarScan = System.nanoTime() - timePolarScan;
+		timePolarScan = timePolarScan / 1000000;
 		//print result
 		System.out.print("\nRoute: " + cities.get(0));
 		for (int i = 1; i < cities.size(); i++)
 			System.out.print(" -> " + cities.get(i));
-		System.out.println("\nDistance: " + bf.getBest());
+		//brute force results
+//		System.out.println("\nDistance: " + distanceBF);
+//		System.out.println("Time: " + timeBruteForce + " ms");
+		////
+		//polar scan results
+		System.out.println("\nDistance: " + distancePS);
+		System.out.println("Time: " + timePolarScan + " ms");
+		////
 		////
 		//draw result
 		EventQueue.invokeLater(new Runnable() {

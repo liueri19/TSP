@@ -8,7 +8,6 @@ public class BruteForce {
 	private double best = Double.MAX_VALUE;
 	private List<City> cities;
 	private List<City> result = new ArrayList<City>();
-	private List<List<City>> solutions = new ArrayList<List<City>>();
 	
 	//pseudo code
 	/* double distance = 0;
@@ -85,7 +84,7 @@ public class BruteForce {
 //		return result;
 //	}
 	
-	public double getBest() {
+	public double getBestDistance() {
 		return best;
 	}
 }

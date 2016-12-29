@@ -2,7 +2,7 @@ package org.sevenhills.liueri19;
 
 public class City {
 	private final String id;
-	private final int x, y;
+	protected final int x, y;
 	
 	City(String id, int x, int y) {
 		this.id = id;
